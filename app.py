@@ -273,7 +273,7 @@ def render_sidebar() -> None:
     ocr_backend = st.sidebar.selectbox(
         "Backend OCR",
         options=["tesseract", "easyocr", "paddleocr", "deepseek_ocr"],
-        index=0,
+        index=1,
         help="Tesseract tende a ser melhor para linha única restrita; EasyOCR, PaddleOCR e DeepSeek-OCR ficam disponíveis para comparação.",
     )
     ocr_mode = st.sidebar.selectbox(
