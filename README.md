@@ -1,24 +1,19 @@
 # Flexible Packaging OCR
 
-MVP para ler texto à volta de códigos de barras em embalagens flexíveis, com dois modos:
+MVP para ler texto em embalagens flexíveis, com dois separadores principais:
 
-- `Batch Upload`: processa um conjunto de imagens e devolve os resultados por ficheiro.
 - `Image Library`: guarda imagens numa pasta local, permite ajustar filtros em tempo real, guardar settings e correr OCR batch com esses filtros.
 - `Webcam Realtime`: analisa frames da webcam e faz overlay do texto lido.
 - `ocr`: modo único atual, focado em OCR geral na imagem completa.
-- `Comparar todos os backends`: corre `tesseract`, `easyocr`, `paddleocr` e `deepseek_ocr` na mesma imagem.
-- `Mostrar filtros de diagnóstico`: mostra a ROI e as variantes filtradas aplicadas antes da inferência OCR.
-- O diagnóstico de filtros também corre OCR por variante e destaca automaticamente o filtro com maior similaridade.
+- Backends disponíveis: `easyocr` (default), `tesseract`, `paddleocr` e `deepseek_ocr`.
 
 ## Arquitetura
 
 O fluxo implementado é:
 
-1. Tentar ler o código de barras com `pyzbar`.
-2. Se a leitura falhar, estimar a região do código com OpenCV.
-3. Aplicar pré-processamento para OCR.
-4. Correr OCR com `tesseract`, `easyocr`, `paddleocr` ou `deepseek_ocr`.
-5. Validar o texto com tokens obrigatórios, expressão regular e string esperada.
+1. Aplicar pré-processamento (filtros configuráveis) na imagem completa.
+2. Correr OCR com `easyocr`, `tesseract`, `paddleocr` ou `deepseek_ocr`.
+3. Validar o texto com tokens obrigatórios, expressão regular e string esperada.
 
 ## Instalação
 
@@ -77,7 +72,6 @@ python -m pip install -r requirements-paddle.txt
 - No backend `deepseek_ocr`, a UI mostra passos de execução e há timeout de 300s para evitar spinner indefinido.
 - A primeira inferência com `easyocr` pode demorar vários segundos porque o modelo é carregado em memória; as seguintes devem ser mais rápidas.
 - `pytesseract` requer o binário `tesseract-ocr` instalado no sistema.
-- `pyzbar` pode exigir a biblioteca nativa `zbar` no sistema operativo.
 - `deepseek_ocr` não entra nas dependências pesadas padrão do projeto, mas o ambiente Python precisa de `matplotlib`, `torch`, `transformers` e dos pesos grandes do modelo.
 - O modo webcam usa amostragem de frames para não bloquear CPU.
 - O modo de verificação por `Texto esperado` ajuda a estabilizar resultados em cenários industriais.
