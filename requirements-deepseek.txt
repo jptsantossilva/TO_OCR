@@ -7,3 +7,4 @@ addict
 easydict
 matplotlib==3.10.1
 safetensors
+
