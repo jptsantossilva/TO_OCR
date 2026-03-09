@@ -1,0 +1,12 @@
+easyocr==1.7.2
+matplotlib==3.10.1
+numpy==1.26.4
+opencv-python-headless==4.11.0.86
+pandas==2.2.3
+paddleocr==3.3.3
+paddlepaddle==3.2.0
+Pillow==11.1.0
+pytesseract==0.3.13
+pyzbar==0.1.9
+streamlit==1.55.0
+streamlit-webrtc==0.62.4
